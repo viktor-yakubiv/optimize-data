@@ -58,7 +58,7 @@ def test_languages_two_keys():
 
 @pytest.mark.xfail(reason="Advanced test. Optional to implement")
 def test_list_keys():
-    template = 'Second animal: {animals[2]}'
+    template = 'Second animal: {animals[1]}'
     new_data = main.optimize_data(template, DATA)
 
     # Always check that formatted string matches
@@ -71,7 +71,7 @@ def test_list_keys():
     }
 
 
-@pytest.mark.xfail(reason="Advanced test. Optional to implement")
+# @pytest.mark.xfail(reason="Advanced test. Optional to implement")
 def test_objects():
 
     Rectangle = namedtuple("Rectangle", "width", "height")

@@ -8,10 +8,18 @@ def optimize_data(template, data):
         key = keys[i]
 
         if i == len(keys) - 1:
+            if type(key) is int:
+                while len(result) <= key:
+                    result.append(None)
             result[key] = data[key]
         else:
             if not key in result:
-                result[key] = {}
+                if type(data[key]) in (list, tuple):
+                    result[key] = list()
+                    keys[i + 1] = int(keys[i + 1])
+                else:
+                    constructor = type(data[key])
+                    result[key] = constructor()
             resolve_dict(keys, data[key], result[key], i + 1)
 
     result = {}
