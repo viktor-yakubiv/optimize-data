@@ -56,7 +56,7 @@ def test_languages_two_keys():
     }
 
 
-@pytest.mark.xfail(reason="Advanced test. Optional to implement")
+# @pytest.mark.xfail(reason="Advanced test. Optional to implement")
 def test_list_keys():
     template = 'Second animal: {animals[1]}'
     new_data = main.optimize_data(template, DATA)
@@ -77,8 +77,8 @@ def test_objects():
     Rectangle = namedtuple("Rectangle", "width", "height")
 
     data = {
-        'small_rect': Rectangle(1, 2),
-        'big_square': Rectangle(200, 100),
+        'small_rect': Rectangle((1, 2),),
+        'big_square': Rectangle((200, 100),),
     }
 
     template = 'Rect width: {small_rect.width}'
@@ -91,5 +91,5 @@ def test_objects():
 
     assert new_data == {
         # We don't strip attributes from the objects, so rectangle is full
-        'small_rect': Rectagle(1, 2),
+        'small_rect': Rectangle((1, 2),),
     }

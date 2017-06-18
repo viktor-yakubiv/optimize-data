@@ -11,21 +11,26 @@ def optimize_data(template, data):
             if type(key) is int:
                 while len(result) <= key:
                     result.append(None)
+            else:
+                dot = key.find('.')
+                if dot > -1:
+                    key = key[:dot]
             result[key] = data[key]
         else:
             if not key in result:
                 if type(data[key]) in (list, tuple):
                     result[key] = list()
                     keys[i + 1] = int(keys[i + 1])
+                elif type(data[key]) is dict:
+                    result[key] = {}
                 else:
-                    constructor = type(data[key])
-                    result[key] = constructor()
+                    result[key] = data[key]
             resolve_dict(keys, data[key], result[key], i + 1)
 
     result = {}
 
-    for placeholder in findall(r'{([\w\[\]]+)}', template):
-        keys = findall(r'\[?([\w]+)\]?', placeholder)
+    for placeholder in findall(r'{([\w\[\].]+)}', template):
+        keys = findall(r'\[?([\w.]+)\]?', placeholder)
         resolve_dict(keys, data, result)
     return result
 
